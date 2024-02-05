@@ -19,7 +19,7 @@ public class BigFraction {
     this.denom = BigInteger.valueOf(denom);
   }
 
-  // --- Constructor for (String) --- Parsing
+  // --- Constructor for (String) --- Parsing Strings
   public BigFraction(String fraction) {
     // To add input validation later??
     int divisorIndex = fraction.indexOf('/');
@@ -32,11 +32,61 @@ public class BigFraction {
   }
 
   // Methods
+  // --- Getters ---
   public BigInteger getNumerator() {
     return num;
   }
 
   public BigInteger getDenominator() {
     return denom;
+  }
+  
+  // --- Athrimetic methods ---
+  public BigFraction add (BigFraction addMe) {
+    BigInteger resultNum;
+    BigInteger resultDenom;
+
+    resultDenom = this.denom.multiply(addMe.denom);
+    resultNum = this.num.multiply(addMe.denom).add(addMe.num.multiply(this.denom));
+    return new BigFraction(resultNum, resultDenom);
+  }
+
+  public BigFraction subtract (BigFraction subtractMe) {
+    BigInteger resultNum;
+    BigInteger resultDenom;
+
+    resultDenom = this.denom.multiply(subtractMe.denom);
+    resultNum = this.num.multiply(subtractMe.denom).subtract(subtractMe.num.multiply(this.denom));
+
+    return new BigFraction(resultNum, resultDenom);
+  }
+  
+  public BigFraction multiply (BigFraction multiplyMe) {
+    BigInteger resultNum;
+    BigInteger resultDenom;
+
+    resultDenom = this.denom.multiply(multiplyMe.denom);
+    resultNum = this.num.multiply(multiplyMe.num);
+
+    return new BigFraction(resultNum, resultDenom);
+  }
+
+  public BigFraction divide (BigFraction divideMe) {
+    BigInteger resultNum;
+    BigInteger resultDenom;
+
+    resultDenom = this.denom.multiply(divideMe.num);
+    resultNum = this.num.multiply(divideMe.denom);
+
+    return new BigFraction(resultNum, resultDenom);
+  }
+
+
+  // --- Convert fraction to string ---
+  public String toString() {
+    if (this.num.equals(BigInteger.ZERO)) {
+      return "0";
+    }
+    return this.num + "/" + this.denom;
   }
 }
