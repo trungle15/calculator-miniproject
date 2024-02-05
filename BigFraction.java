@@ -11,12 +11,14 @@ public class BigFraction {
   public BigFraction(BigInteger num, BigInteger denom) {
     this.num = num;
     this.denom = denom;
+    this.reduce();
   }
 
   // ---- Constructor for (int, int) 
   public BigFraction(int num, int denom) {
     this.num = BigInteger.valueOf(num);
     this.denom = BigInteger.valueOf(denom);
+    this.reduce();
   }
 
   // --- Constructor for (String) --- Parsing Strings
@@ -29,6 +31,7 @@ public class BigFraction {
 
     this.num = new BigInteger(numArray);
     this.denom = new BigInteger(denomArray);
+    this.reduce();
   }
 
   // Methods
@@ -81,6 +84,12 @@ public class BigFraction {
     return new BigFraction(resultNum, resultDenom);
   }
 
+  // --- Reduce method ---
+  public void reduce() {
+    BigInteger gcd = num.gcd(denom);
+    this.num = this.num.divide(gcd);
+    this.denom = this.denom.divide(gcd);
+  }
 
   // --- Convert fraction to string ---
   public String toString() {
