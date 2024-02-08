@@ -12,7 +12,7 @@ public class InteractiveCalculator {
   public static BigFraction evaluateExpression (String[] tokens, Registers registers) throws Exception {
     BigFraction result = null;
 
-    for (int i = 1; i < tokens.length; i ++) {
+    for (int i = 0; i < tokens.length; i ++) {
       BigFraction nextFraction;
 
       if (i % 2 == 0) {
