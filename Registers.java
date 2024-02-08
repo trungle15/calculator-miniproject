@@ -14,7 +14,7 @@ public class Registers {
 
   public BigFraction get(char register) {
     int base = (int) 'a';
-    int registerNum = Character.toLowerCase(register) - base; // Ensure lowercase for consistent indexing
+    int registerNum = Character.toLowerCase(register) - base;
     if (registerNum < 0 || registerNum > 25) {
         System.err.println("Valid registers: \"a-z\". Please input a valid register character in the range.");
         return null;
