@@ -27,17 +27,28 @@ public class BigFraction {
     this.reduce();
   }
 
+  // // Constructor for only numerator (whole number)
+  // public BigFraction(int num) {
+  //   this.num = BigInteger.valueOf(num);
+  //   this.denom = BigInteger.ONE;
+  // }
+
   // --- Constructor for (String) --- Parsing Strings
   public BigFraction(String fraction) {
     // To add input validation later??
     int divisorIndex = fraction.indexOf('/');
 
-    String numArray = fraction.substring(0, divisorIndex);
-    String denomArray = fraction.substring(divisorIndex + 1);
+    if (divisorIndex == -1) {
+      this.num = new BigInteger(fraction);
+      this.denom = BigInteger.ONE;
+    } else {
+      String numArray = fraction.substring(0, divisorIndex);
+      String denomArray = fraction.substring(divisorIndex + 1);
 
-    this.num = new BigInteger(numArray);
-    this.denom = new BigInteger(denomArray);
-    this.reduce();
+      this.num = new BigInteger(numArray);
+      this.denom = new BigInteger(denomArray);
+      this.reduce(); 
+    }
   }
 
   // Methods
@@ -101,6 +112,8 @@ public class BigFraction {
   public String toString() {
     if (this.num.equals(BigInteger.ZERO)) {
       return "0";
+    } else if (this.denom.equals(BigInteger.ONE)) {
+      return this.num.toString();
     }
     return this.num + "/" + this.denom;
   }
