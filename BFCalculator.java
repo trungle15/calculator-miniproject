@@ -1,3 +1,9 @@
+/**
+ * Class for handling calculation Big Fractions
+ *
+ * @author Trung Le
+ */
+
 public class BFCalculator {
   private BigFraction latestValue; 
 

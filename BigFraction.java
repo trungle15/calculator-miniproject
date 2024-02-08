@@ -1,3 +1,9 @@
+/**
+ * Base class for Big Fraction, can handle athrimetic operations and reduce to simplest form
+ *
+ * @author Trung Le
+ */
+
 import java.math.BigInteger;
 
 public class BigFraction {
