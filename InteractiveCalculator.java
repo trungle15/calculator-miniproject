@@ -9,8 +9,8 @@ import java.util.Scanner;
 
 public class InteractiveCalculator {
 
-  public static BigFraction evaluateExpression (String[] tokens, Registers registers) throws Exception {
-    BigFraction result = null;
+  public static BFCalculator evaluateExpression (String[] tokens, Registers registers) throws Exception {
+    BFCalculator result = null;
 
     for (int i = 0; i < tokens.length; i ++) {
       BigFraction nextFraction;
@@ -26,21 +26,22 @@ public class InteractiveCalculator {
         }
 
         if (result == null) {
-          result = nextFraction;
+          result = new BFCalculator();
+          result.add(nextFraction);
         } else {
           String operator = tokens[i - 1];
           switch (operator) {
             case "+":
-              result = result.add(nextFraction);
+              result.add(nextFraction);
               break;
             case "-":
-              result = result.subtract(nextFraction);
+              result.subtract(nextFraction);
               break;
             case "*":
-              result = result.multiply(nextFraction);
+              result.multiply(nextFraction);
               break;
             case "/":
-              result = result.divide(nextFraction);
+              result.divide(nextFraction);
               break;
             default:
               throw new Exception("Invalid operator: " + operator);
@@ -58,7 +59,7 @@ public class InteractiveCalculator {
 
   public static void main(String[] args) {
     Scanner eye = new Scanner(System.in);
-    BFCalculator fraction = new BFCalculator();
+    BFCalculator tempFraction = new BFCalculator();
     Registers registers = new Registers();
 
     while (true) {
@@ -72,13 +73,13 @@ public class InteractiveCalculator {
       String[] inputArray = input.split(" ");
 
       if ("STORE".equalsIgnoreCase(inputArray[0]) && inputArray.length == 2) {
-          registers.store(inputArray[1].charAt(0), fraction.get());
+          registers.store(inputArray[1].charAt(0), tempFraction.get());
       } else {
           try {
-              BigFraction result = evaluateExpression(inputArray, registers);
-              fraction.clear(); // Reset the BFCalculator
-              fraction.add(result); // Update with the new result
-              System.out.println(result.toString()); // Print the result
+              BFCalculator result = evaluateExpression(inputArray, registers);
+              tempFraction.clear(); // Reset the BFCalculator
+              tempFraction.add(result.get()); // Update with the new result
+              System.out.println(result.get().toString()); // Print the result
           } catch (Exception e) {
               System.out.println("Error: " + e.getMessage()); // Display exception message
           }
